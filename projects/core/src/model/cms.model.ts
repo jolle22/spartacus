@@ -176,7 +176,7 @@ export interface CmsAddToCartComponent extends CmsComponent {
   inventoryDisplay?: boolean;
 }
 
-export interface CmsPDFComponent extends CmsComponent {
+export interface CmsPDFDocumentComponent extends CmsComponent {
   pdfFile?: CmsBannerComponentMedia;
   title?: string;
   height: number;
