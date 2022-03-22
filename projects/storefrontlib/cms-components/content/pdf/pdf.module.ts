@@ -8,7 +8,7 @@ import { PDFComponent } from './pdf.component';
   providers: [
     provideDefaultConfig(<CmsConfig>{
       cmsComponents: {
-        VideoComponent: {
+        PDFDocumentComponent: {
           component: PDFComponent,
         },
       },
