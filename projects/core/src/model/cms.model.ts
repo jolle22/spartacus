@@ -175,3 +175,9 @@ export interface CmsProductFacetNavigationComponent extends CmsComponent {
 export interface CmsAddToCartComponent extends CmsComponent {
   inventoryDisplay?: boolean;
 }
+
+export interface CmsPDFComponent extends CmsComponent {
+  pdfFile?: CmsBannerComponentMedia;
+  title?: string;
+  height: number;
+}
