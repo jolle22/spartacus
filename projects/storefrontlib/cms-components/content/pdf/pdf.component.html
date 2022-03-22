@@ -1,1 +1,4 @@
-<p>pdf works!</p>
+<div
+*ngIf="data$ | async as data">
+<p *ngIf="data.title">{{data.title}}</p>
+</div>
