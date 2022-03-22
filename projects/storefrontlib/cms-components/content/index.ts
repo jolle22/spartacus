@@ -8,3 +8,5 @@ export * from './paragraph/paragraph.component';
 export * from './paragraph/paragraph.module';
 export * from './tab-paragraph-container/tab-paragraph-container.component';
 export * from './tab-paragraph-container/tab-paragraph-container.module';
+export * from './pdf/pdf.component';
+export * from './pdf/pdf.module';

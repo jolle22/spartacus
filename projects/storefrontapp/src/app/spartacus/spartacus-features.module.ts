@@ -48,6 +48,7 @@ import {
   SiteContextSelectorModule,
   StockNotificationModule,
   TabParagraphContainerModule,
+  PDFModule,
 } from '@spartacus/storefront';
 import { environment } from '../../environments/environment';
 import { AdministrationFeatureModule } from './features/administration-feature.module';
@@ -131,6 +132,7 @@ if (environment.epdVisualization) {
     FooterNavigationModule,
     PageTitleModule,
     BreadcrumbModule,
+    PDFModule,
 
     // User Core
     UserModule,
