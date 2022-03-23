@@ -1,11 +1,14 @@
-import {  Component, HostBinding } from '@angular/core';
-import { CmsBannerComponentMedia, CmsPDFDocumentComponent } from '@spartacus/core';
+import { Component, HostBinding } from '@angular/core';
+import {
+  CmsBannerComponentMedia,
+  CmsPDFDocumentComponent,
+} from '@spartacus/core';
 import { FileDownloadService } from '../../../shared/services/file/file-download.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CmsComponentData } from '../../../cms-structure/page/model/cms-component-data';
 import { MediaService } from '../../../shared/components/media/media.service';
-import { MediaContainer } from '@spartacus/storefront';
+import { MediaContainer } from '../../../shared/components/media/media.model';
 
 @Component({
   selector: 'cx-pdf',
@@ -22,15 +25,12 @@ export class PDFComponent {
   constructor(
     protected component: CmsComponentData<CmsPDFDocumentComponent>,
     protected fileDownloadService: FileDownloadService,
-    protected mediaService: MediaService,
+    protected mediaService: MediaService
   ) {}
 
   protected download(file?: CmsBannerComponentMedia) {
-      const url = this.mediaService.getMedia(
-        file as MediaContainer
-      )?.src;
+    const url = this.mediaService.getMedia(file as MediaContainer)?.src;
 
-      if (url)
-        this.fileDownloadService.download(url);
+    if (url) this.fileDownloadService.download(url);
   }
 }

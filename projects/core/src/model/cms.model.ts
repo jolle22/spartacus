@@ -178,6 +178,6 @@ export interface CmsAddToCartComponent extends CmsComponent {
 
 export interface CmsPDFDocumentComponent extends CmsComponent {
   pdfFile?: CmsBannerComponentMedia;
-  title?: string;
+  name?: string;
   height: number;
 }
