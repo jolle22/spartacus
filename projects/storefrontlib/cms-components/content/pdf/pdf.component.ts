@@ -1,31 +1,36 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CmsPDFComponent } from '@spartacus/core';
+import {  Component, HostBinding } from '@angular/core';
+import { CmsBannerComponentMedia, CmsPDFDocumentComponent } from '@spartacus/core';
+import { FileDownloadService } from '../../../shared/services/file/file-download.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { CmsComponentData } from '../../../cms-structure/page/model/cms-component-data';
+import { MediaService } from '../../../shared/components/media/media.service';
+import { MediaContainer } from '@spartacus/storefront';
 
 @Component({
   selector: 'cx-pdf',
   templateUrl: './pdf.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PDFComponent implements OnInit {
+export class PDFComponent {
+  @HostBinding('class') styleClasses: string | undefined;
 
-  title: string | undefined;
-  testFunc(data: CmsPDFComponent) {
-    console.log(data);
-    this.title = data.title;
-  }
-
-  data$: Observable<CmsPDFComponent> = this.component.data$.pipe(
+  data$: Observable<CmsPDFDocumentComponent> = this.component.data$.pipe(
     tap((data) => {
-      console.log(data);
-      this.testFunc(data);
+      this.styleClasses = data.styleClasses;
     })
   );
   constructor(
-    protected component: CmsComponentData<CmsPDFComponent>
+    protected component: CmsComponentData<CmsPDFDocumentComponent>,
+    protected fileDownloadService: FileDownloadService,
+    protected mediaService: MediaService,
   ) {}
 
-  ngOnInit(): void {}
+  protected download(file?: CmsBannerComponentMedia) {
+      const url = this.mediaService.getMedia(
+        file as MediaContainer
+      )?.src;
+
+      if (url)
+        this.fileDownloadService.download(url);
+  }
 }

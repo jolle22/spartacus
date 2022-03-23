@@ -1,4 +1,6 @@
 <div
-*ngIf="data$ | async as data">
-<p *ngIf="data.title">{{data.title}}</p>
+*ngIf="data$ | async as data;"
+[style.height.px]="data.height">
+<p *ngIf="data.name">{{data.name}}</p>
+<button (click)="download(data.pdfFile)">Download</button>
 </div>
