@@ -1,3 +1,9 @@
+export interface InnerHostMapping<T = any> {
+  /** Name of component. */
+  component: string;
+  /** Data to be passed as injectables onto component instance(s). */
+  data?: T;
+}
 export interface CmsComponent {
   modifiedTime?: Date;
   name?: string;
@@ -11,8 +17,9 @@ export interface CmsComponent {
   composition?: {
     /**
      * List of inner component mappings
+     * TODO: This has to be a crazy idea.
      */
-    inner?: string[];
+    inner?: Array<InnerHostMapping | string>;
   };
 
   /**
@@ -184,6 +191,7 @@ export interface CmsProductFacetNavigationComponent extends CmsComponent {
 
 export interface CmsAddToCartComponent extends CmsComponent {
   inventoryDisplay?: boolean;
+  icon?: string;
 }
 
 export interface CmsVideoComponent extends CmsComponent {

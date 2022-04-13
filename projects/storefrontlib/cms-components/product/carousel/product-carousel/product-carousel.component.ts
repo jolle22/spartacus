@@ -1,17 +1,20 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, StaticProvider } from '@angular/core';
 import {
   CmsProductCarouselComponent as model,
   Product,
   ProductScope,
   ProductService,
 } from '@spartacus/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { CmsComponentData } from '../../../../cms-structure/page/model/cms-component-data';
+import { ProductListItemContext } from '../../product-list';
 
 @Component({
   selector: 'cx-product-carousel',
   templateUrl: './product-carousel.component.html',
+  /** TODO: Should not stay here; likely has to go to @spartacus/styles. */
+  styleUrls: [ './product-carousel.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCarouselComponent {
@@ -46,4 +49,17 @@ export class ProductCarouselComponent {
     protected componentData: CmsComponentData<model>,
     protected productService: ProductService
   ) {}
+
+  getProviders(item: Product): Array<StaticProvider> {
+    const productSource: ProductListItemContext = {
+      product$: new BehaviorSubject<Product>(item),
+    };
+
+    return [
+      {
+        provide: ProductListItemContext,
+        useValue: productSource,
+      },
+    ]
+  }
 }

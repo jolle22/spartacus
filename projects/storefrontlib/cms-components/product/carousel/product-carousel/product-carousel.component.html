@@ -24,4 +24,26 @@
       {{ item.price?.formattedValue }}
     </div>
   </a>
+  <!--
+      pros:
+        - the merchant's configuration for product lists will be carried over here
+        - arguably has loose coupling
+      cons: does not play well with lazy-loading
+    -->
+    <!--
+    <ng-template [cxOutlet]="ProductListOutlets.ITEM_ACTIONS">
+      <ng-container cxInnerComponentsHost></ng-container>
+    </ng-template>
+    -->
+    <!--
+      Mind: need to pass context
+      pros:
+        - can do something like [ "ConfigureProductComponent", "AddToCartComponent" ]
+        - has loose coupling if the cart module gets split out (I suppose @spartacus/cart)
+          - so if the components cannot be found (as it cannot depend on the cart library), the component will simply not show up and the application can continue
+      cons:
+    -->
+    <div class="actions">
+      <ng-container cxInnerComponentsHost [additionalProviders]="getProviders(item)"></ng-container>
+    </div>
 </ng-template>

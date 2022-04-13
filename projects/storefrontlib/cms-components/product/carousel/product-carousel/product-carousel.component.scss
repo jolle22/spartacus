@@ -1,0 +1,21 @@
+.actions {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 0 8px;
+  width: 100%;
+}
+
+:host {
+  .actions::ng-deep {
+    .btn {
+      display: inline-block;
+      font-size: 12px;
+      height: 24px;
+      line-height: 21px;
+      margin: 4px 4px 0 0;
+      padding: 0 8px;
+      vertical-align: middle;
+      width: auto;
+    }
+  }
+}

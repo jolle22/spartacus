@@ -37,6 +37,9 @@ import { ComponentHandlerService } from './services/component-handler.service';
 })
 export class ComponentWrapperDirective implements OnInit, OnDestroy {
   @Input() cxComponentWrapper: ContentSlotComponentData;
+
+  @Input() data?: Object;
+
   @Output() cxComponentRef = new EventEmitter<ComponentRef<any>>();
 
   /**
@@ -91,7 +94,10 @@ export class ComponentWrapperDirective implements OnInit, OnDestroy {
         this.cmsInjector.getInjector(
           this.cxComponentWrapper.flexType,
           this.cxComponentWrapper.uid,
-          this.injector
+          {
+            data: this.data,
+            parentInjector: this.injector,
+          },
         ),
         this.cmsComponentsService.getModule(this.cxComponentWrapper.flexType)
       )

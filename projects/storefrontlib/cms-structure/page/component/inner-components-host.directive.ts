@@ -1,15 +1,18 @@
 import {
   Directive,
   Injector,
+  Input,
   OnDestroy,
   OnInit,
   Renderer2,
+  StaticProvider,
   ViewContainerRef,
 } from '@angular/core';
 import {
   CmsComponent,
   DynamicAttributeService,
   EventService,
+  InnerHostMapping,
 } from '@spartacus/core';
 import { Subscription } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
@@ -23,6 +26,9 @@ import { ComponentHandlerService } from './services/component-handler.service';
   selector: '[cxInnerComponentsHost]',
 })
 export class InnerComponentsHostDirective implements OnInit, OnDestroy {
+  @Input()
+  additionalProviders?: Array<StaticProvider>;
+
   protected innerComponents$ = this.data.data$.pipe(
     map((data) => data?.composition?.inner ?? []),
     distinctUntilChanged()
@@ -50,23 +56,40 @@ export class InnerComponentsHostDirective implements OnInit, OnDestroy {
     });
   }
 
-  protected renderComponents(components: string[]) {
+  protected renderComponents(components: Array<InnerHostMapping | string>) {
     this.clearComponents();
     components.forEach((component) => this.renderComponent(component));
   }
 
-  protected renderComponent(component: string) {
+  protected renderComponent(component: InnerHostMapping | string) {
+    const providers = [
+      ...(this.additionalProviders ?? []),
+    ];
+
     const componentWrapper = new ComponentWrapperDirective(
       this.vcr,
       this.cmsComponentsService,
-      this.injector,
+      Injector.create({
+        providers,
+        parent: this.injector
+      }),
       this.dynamicAttributeService,
       this.renderer,
       this.componentHandler,
       this.cmsInjector,
       this.eventService
     );
-    componentWrapper.cxComponentWrapper = { flexType: component, uid: '' };
+
+    let flexType: string;
+
+    if (typeof component === 'string') {
+      flexType = component;
+    } else {
+      flexType = component.component;
+      componentWrapper.data = component.data;
+    }
+
+    componentWrapper.cxComponentWrapper = { flexType, uid: '' };
     componentWrapper.ngOnInit();
     this.componentWrappers.push(componentWrapper);
   }
