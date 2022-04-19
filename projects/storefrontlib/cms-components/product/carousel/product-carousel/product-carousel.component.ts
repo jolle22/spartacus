@@ -13,8 +13,6 @@ import { ProductListItemContext } from '../../product-list';
 @Component({
   selector: 'cx-product-carousel',
   templateUrl: './product-carousel.component.html',
-  /** TODO: Should not stay here; likely has to go to @spartacus/styles. */
-  styleUrls: [ './product-carousel.component.scss' ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCarouselComponent {

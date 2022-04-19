@@ -51,6 +51,7 @@ export class CmsInjectorService {
                     } else if (typeof data === 'object') {
                       subscriber.next({...config.data, ...data });
                     } else {
+                      // TODO - kinda weird
                       subscriber.next(data);
                     }
                     subscriber.complete();

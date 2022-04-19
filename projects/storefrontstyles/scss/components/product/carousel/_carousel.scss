@@ -66,6 +66,17 @@
         }
       }
     }
+
+    .actions {
+      display: flex;
+      flex-flow: row wrap;
+      padding: 0 8px;
+      width: 100%;
+
+      > *:not(:empty) {
+        margin: 4px 4px 0 0;
+      }
+    }
   }
 
   button {
