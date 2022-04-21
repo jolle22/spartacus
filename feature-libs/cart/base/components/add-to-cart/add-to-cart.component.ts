@@ -49,8 +49,6 @@ export class AddToCartComponent implements OnInit, OnDestroy {
   showInventory$: Observable<boolean | undefined> | undefined =
     this.component?.data$.pipe(map((data) => data.inventoryDisplay));
 
-  icon$: Observable<string | undefined> = this.component.data$.pipe(map(data => data.icon));
-
   quantity = 1;
 
   subscription: Subscription;

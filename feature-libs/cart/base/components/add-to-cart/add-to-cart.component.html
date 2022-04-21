@@ -25,9 +25,6 @@
     type="submit"
     [disabled]="quantity <= 0 || quantity > maxQuantity"
   >
-    <img *ngIf="(icon$ | async) as icon else defaultText" [src]="icon" height="100%" />
-    <ng-template #defaultText>
-      {{ 'addToCart.addToCart' | cxTranslate }}
-    </ng-template>
+    {{ 'addToCart.addToCart' | cxTranslate }}
   </button>
 </form>

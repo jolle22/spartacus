@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, Optional } from '@angular/core';
-import { CmsComponent, Product } from '@spartacus/core';
+import { Product } from '@spartacus/core';
 import {
-  CmsComponentData,
   CurrentProductService,
   ProductListItemContext,
 } from '@spartacus/storefront';
@@ -29,13 +28,10 @@ export class ConfigureProductComponent {
     map((product) => (product ? product : this.nonConfigurable))
   );
 
-  icon$: Observable<string | undefined> = this.component.data$.pipe(map(data => data.icon));
-
   ownerTypeProduct: CommonConfigurator.OwnerType =
     CommonConfigurator.OwnerType.PRODUCT;
 
   constructor(
-    protected component: CmsComponentData<{ icon: string } & CmsComponent>,
     @Optional() protected productListItemContext: ProductListItemContext, // when on PLP
     @Optional() protected currentProductService: CurrentProductService // when on PDP
   ) {}

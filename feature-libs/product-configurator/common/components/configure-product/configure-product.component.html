@@ -13,11 +13,7 @@
       class="btn btn-primary btn-block"
       cxAutoFocus
       [attr.aria-label]="'configurator.a11y.configureProduct' | cxTranslate"
-      >
-        <img *ngIf="(icon$ | async) as icon else defaultText" [src]="icon" height="100%" />
-        <ng-template #defaultText>
-          {{ 'configurator.header.toconfig' | cxTranslate }}
-        </ng-template>
-      </a>
+      >{{ 'configurator.header.toconfig' | cxTranslate }}</a
+    >
   </ng-container>
 </ng-container>

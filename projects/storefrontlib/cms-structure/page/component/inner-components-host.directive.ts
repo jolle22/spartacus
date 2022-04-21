@@ -12,7 +12,6 @@ import {
   CmsComponent,
   DynamicAttributeService,
   EventService,
-  InnerHostMapping,
 } from '@spartacus/core';
 import { Subscription } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
@@ -56,12 +55,12 @@ export class InnerComponentsHostDirective implements OnInit, OnDestroy {
     });
   }
 
-  protected renderComponents(components: Array<InnerHostMapping | string>) {
+  protected renderComponents(components: string[]) {
     this.clearComponents();
     components.forEach((component) => this.renderComponent(component));
   }
 
-  protected renderComponent(component: InnerHostMapping | string) {
+  protected renderComponent(component: string) {
     const providers = [
       ...(this.additionalProviders ?? []),
     ];
@@ -79,17 +78,7 @@ export class InnerComponentsHostDirective implements OnInit, OnDestroy {
       this.cmsInjector,
       this.eventService
     );
-
-    let flexType: string;
-
-    if (typeof component === 'string') {
-      flexType = component;
-    } else {
-      flexType = component.component;
-      componentWrapper.data = component.data;
-    }
-
-    componentWrapper.cxComponentWrapper = { flexType, uid: '' };
+    componentWrapper.cxComponentWrapper = { flexType: component, uid: '' };
     componentWrapper.ngOnInit();
     this.componentWrappers.push(componentWrapper);
   }

@@ -280,13 +280,3 @@ button,
     @include visible-focus();
   }
 }
-
-a, button {
-  &.icon {
-    font-size: 1rem;
-    height: 24px;
-    line-height: 1;
-    padding: 0 8px;
-    width: auto;
-  }
-}
